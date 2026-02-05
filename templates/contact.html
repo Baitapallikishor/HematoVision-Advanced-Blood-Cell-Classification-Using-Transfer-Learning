@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - HematoVision</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="about-body">
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+
+    <div class="nav-left">
+        🩸 HematoVision
+    </div>
+
+    <div class="nav-right">
+        <div class="menu-icon" onclick="openMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+</div>
+
+<!-- ================= SIDE MENU ================= -->
+<div id="sideMenu" class="side-menu">
+    <div class="menu-header">
+        <span onclick="closeMenu()">✖</span>
+    </div>
+
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+</div>
+
+<div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+
+<!-- ================= CONTACT LAYOUT ================= -->
+<div class="contact-layout">
+
+    <!-- LEFT SIDE : TEAM INFO -->
+    <div class="team-info">
+
+        <h2>Project Information</h2>
+
+        <p><b>Team ID :</b> LTVIP2026TMIDS76616</p>
+        <p><b>Team Size :</b> 4 Members</p>
+
+        <hr>
+
+        <p><b>Industry Mentor :</b><br>
+        No Mentor has been assigned</p>
+
+        <p><b>Faculty Mentor :</b><br>
+        Kalyan Chakravarthy Pottimurthy</p>
+
+    </div>
+
+
+    <!-- RIGHT SIDE : TEAM DETAILS -->
+    <div class="team-details">
+
+        <div class="about-title">
+            <h1>Contact Details</h1>
+            <h3>HematoVision Project Team</h3>
+        </div>
+
+        <!-- TEAM LEADER -->
+        <h2 class="section-heading">Team Leader</h2>
+
+        <div class="contact-card leader">
+            <p><b>Name:</b> BAITAPALLI KISHOR</p>
+            <p><b>Hall ticket no:</b> 22551A0575</p>
+            <p><b>Email:</b> kishor.baitapalli575@gmail.com</p>
+            <p><b>College Name:</b> Godavari Institute of Engineering and Technology, Rajahmundry</p>
+        </div>
+
+        <!-- TEAM MEMBERS -->
+        <h2 class="section-heading">Team Members</h2>
+
+        <div class="team-members">
+
+            <div class="contact-card">
+                <h4>Member 1</h4>
+                <p>Name: Pavan Kenguva</p>
+                <p>Hall ticket no: 22551A4227</p>
+                <p>Email: pavankenguva9381@gmail.com</p>
+                <p><b>College Name:</b> GIET, Rajahmundry</p>
+            </div>
+
+            <div class="contact-card">
+                <h4>Member 2</h4>
+                <p>Name: Sai Madhava Bojjapu</p>
+                <p>Hall ticket no: XXXXX</p>
+                <p>Email: XXXXX</p>
+                <p><b>College Name:</b> XXXXX</p>
+            </div>
+
+            <div class="contact-card">
+                <h4>Member 3</h4>
+                <p>Name: Member Name</p>
+                <p>Hall ticket no: XXXXX</p>
+                <p>Email: XXXXX</p>
+                <p><b>College Name:</b> XXXXX</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<!-- ================= FOOTER BAR ================= -->
+<div class="footer-bar">
+    <p>© 2026 HematoVision | Transfer Learning Based Blood Cell Classification</p>
+</div>
+</body>
+</html>
