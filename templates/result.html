@@ -5,83 +5,41 @@
     <title>HematoVision - Result</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
-<!-- ================= NAVBAR ================= -->
-<div class="navbar">
-
-    <div class="nav-left">
-        🩸 HematoVision
-    </div>
-
-    <div class="nav-right">
-        <div class="menu-icon" onclick="openMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-
-</div>
-
-<!-- ================= SIDE MENU ================= -->
-<div id="sideMenu" class="side-menu">
-
-    <div class="menu-header">
-        <span onclick="closeMenu()">✖</span>
-    </div>
-
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
-
-</div>
-
-<!-- DARK OVERLAY -->
-<div id="overlay" class="overlay" onclick="closeMenu()"></div>
-
-
-<!-- ================= RESULT BACKGROUND ================= -->
 <div class="result-bg">
 
-    <!-- TITLE OUTSIDE BOX -->
     <h2 class="prediction-title">Prediction Result</h2>
 
     <div class="result-container">
 
         <!-- IMAGE CARD -->
         <div class="image-card">
-
-            <img src="{{ url_for('static', filename='uploads/' + image) }}">
+            <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Uploaded Image">
 
             <div class="prediction-info">
-                <p><b>Cell Type :</b> {{ max_cell }}</p>
+                <p><b>Prediction :</b> {{ max_cell }}</p>
                 <p><b>Confidence :</b> {{ "%.2f"|format(max_value) }}%</p>
             </div>
-            <a href="/" class="upload-again">⬆ Upload Another Image</a>
 
+            <a href="/" class="upload-again">Upload Another Image</a>
         </div>
 
-        <!-- ================= RIGHT SIDE ================= -->
+        <!-- RESULTS CARD -->
         <div class="result-card">
 
-            <h2>Results</h2>
+            <h2>All Class Probabilities</h2>
 
             {% for cell, value in results.items() %}
             <div class="result-row">
                 <span>{{ cell }}</span>
-                 <span>{{ "%.2f"|format(value) }}%</span>
-                   </div>
+                <span>{{ "%.2f"|format(value) }}%</span>
+            </div>
             {% endfor %}
 
-            <!-- PIE CHART -->
             <div class="chart-box">
                 <canvas id="pieChart"></canvas>
             </div>
@@ -91,30 +49,27 @@
     </div>
 </div>
 
-<!-- ================= PIE CHART SCRIPT ================= -->
 <script>
-
 const resultsData = JSON.parse('{{ results | tojson | safe }}');
 
 const labels = Object.keys(resultsData);
 const values = Object.values(resultsData);
 
-const data = {
-    labels: labels,
-    datasets: [{
-        data: values,
-        backgroundColor: [
-            '#4facfe',
-            '#43e97b',
-            '#fa709a',
-            '#fbc531'
-        ]
-    }]
-};
-
 new Chart(document.getElementById('pieChart'), {
     type: 'pie',
-    data: data,
+    data: {
+        labels: labels,
+        datasets: [{
+            data: values,
+            backgroundColor: [
+                '#ff6384',
+                '#36a2eb',
+                '#cc65fe',
+                '#ffce56',
+                '#2ecc71'
+            ]
+        }]
+    },
     options: {
         plugins: {
             legend: {
@@ -125,12 +80,7 @@ new Chart(document.getElementById('pieChart'), {
         }
     }
 });
-
 </script>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-<!-- ================= FOOTER BAR ================= -->
-<div class="footer-bar">
-    <p>© 2026 HematoVision | Transfer Learning Based Blood Cell Classification</p>
-</div>
+
 </body>
 </html>

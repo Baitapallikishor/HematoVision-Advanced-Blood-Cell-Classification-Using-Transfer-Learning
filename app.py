@@ -1,115 +1,124 @@
 import os
 import numpy as np
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from werkzeug.utils import secure_filename
 
-# -----------------------------
-# Flask App Config
-# -----------------------------
+# =========================================
+# Flask Configuration
+# =========================================
 app = Flask(__name__)
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-UPLOAD_FOLDER = os.path.join(BASE_DIR, "static", "uploads")
-MODEL_PATH = os.path.join(BASE_DIR, "model", "blood_cell_model.h5")
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# =========================================
+# Load Trained Model
+# =========================================
+model = load_model("model/blood_cell_model.h5")
 
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-
-# -----------------------------
-# Lazy Load Model (IMPORTANT)
-# -----------------------------
-model = None
-
-# ⚠️ ORDER MUST MATCH TRAINING
-class_names = [
-    "Eosinophil",
-    "Lymphocyte",
-    "Monocyte",
-    "Neutrophil",
-    "Others"
+# ⚠️ MUST MATCH FOLDER NAMES EXACTLY
+class_labels = [
+    'Basophil',
+    'eosinophil',
+    'lymphocyte',
+    'monocyte',
+    'neutrophil',
+    'others'   # <-- your Non Blood folder
 ]
 
-# -----------------------------
+# =========================================
 # Routes
-# -----------------------------
-@app.route("/")
-def index():
+# =========================================
+# ==============================
+# Home Page
+# ==============================
+@app.route('/')
+def home():
     return render_template("index.html")
 
-@app.route("/about")
+# ==============================
+# About Page
+# ==============================
+@app.route('/about')
 def about():
     return render_template("about.html")
 
-@app.route("/contact")
+# ==============================
+# Contact Page
+# ==============================
+@app.route('/contact')
 def contact():
     return render_template("contact.html")
 
+# ==============================
+# Prediction Route
+# ==============================
 
-@app.route("/predict", methods=["POST"])
+
+@app.route('/predict', methods=['POST'])
 def predict():
 
-    global model
+    if 'image' not in request.files:
+        return "No file uploaded"
 
-    # Load model only when needed
-    if model is None:
-        model = load_model(MODEL_PATH)
+    file = request.files['image']
 
-    if "image" not in request.files:
-        return redirect(url_for("index"))
-
-    file = request.files["image"]
-
-    if file.filename == "":
-        return redirect(url_for("index"))
+    if file.filename == '':
+        return "No file selected"
 
     filename = secure_filename(file.filename)
-    filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
 
-    # -----------------------------
-    # Image Preprocessing
-    # -----------------------------
+    # Preprocess Image
     img = image.load_img(filepath, target_size=(224, 224))
     img_array = image.img_to_array(img)
-    img_array = img_array / 255.0
     img_array = np.expand_dims(img_array, axis=0)
+    img_array = img_array / 255.0
 
-    # -----------------------------
-    # Prediction
-    # -----------------------------
+    # Predict
     predictions = model.predict(img_array)[0]
 
-    results = {
-        "Neutrophil": float(round(predictions[3] * 100, 2)),
-        "Lymphocyte": float(round(predictions[1] * 100, 2)),
-        "Monocyte": float(round(predictions[2] * 100, 2)),
-        "Eosinophil": float(round(predictions[0] * 100, 2))
-    }
+    max_index = np.argmax(predictions)
+    max_cell = class_labels[max_index]
+    max_value = float(predictions[max_index]) * 100
 
-    max_cell = max(results, key=results.get)
-    max_value = results[max_cell]
+    results = {}
 
-    predicted_index = np.argmax(predictions)
+    # =========================================
+    # IF OTHERS -> INVALID IMAGE
+    # =========================================
+    if max_cell == "others":
 
-    if class_names[predicted_index] == "Others":
-        max_cell = "Invalid Image (Not a Blood Cell)"
-        max_value = round(predictions[predicted_index] * 100, 2)
+        for label in class_labels:
+            results[label] = 0
+
+        results["others"] = 100
+
+        display_label = "Invalid Image (Not a Blood Cell)"
+        max_value = 100
+
+    else:
+        for i in range(len(predictions)):
+            results[class_labels[i]] = float(predictions[i]) * 100
+
+        display_label = max_cell
 
     return render_template(
         "result.html",
-        image=filename,
         results=results,
-        max_cell=max_cell,
-        max_value=max_value
+        max_cell=display_label,
+        max_value=max_value,
+        image=filename
     )
 
-# -----------------------------
-# Run Server
-# -----------------------------
-if __name__ == "__main__":
-    app.run()
+# =========================================
+# Run App
+# =========================================
+if __name__ == '__main__':
+    app.run(debug=True)
