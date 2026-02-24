@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HematoVision - Result</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="result-bg">
+
+    <h2 class="prediction-title">Prediction Result</h2>
+
+    <div class="result-container">
+
+        <!-- IMAGE CARD -->
+        <div class="image-card">
+            <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Uploaded Image">
+
+            <div class="prediction-info">
+                <p><b>Prediction :</b> {{ max_cell }}</p>
+                <p><b>Confidence :</b> {{ "%.2f"|format(max_value) }}%</p>
+            </div>
+
+            <a href="/" class="upload-again">Upload Another Image</a>
+        </div>
+
+        <!-- RESULTS CARD -->
+        <div class="result-card">
+
+            <h2>All Class Probabilities</h2>
+
+            {% for cell, value in results.items() %}
+            <div class="result-row">
+                <span>{{ cell }}</span>
+                <span>{{ "%.2f"|format(value) }}%</span>
+            </div>
+            {% endfor %}
+
+            <div class="chart-box">
+                <canvas id="pieChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+const resultsData = JSON.parse('{{ results | tojson | safe }}');
+
+const labels = Object.keys(resultsData);
+const values = Object.values(resultsData);
+
+new Chart(document.getElementById('pieChart'), {
+    type: 'pie',
+    data: {
+        labels: labels,
+        datasets: [{
+            data: values,
+            backgroundColor: [
+                '#ff6384',
+                '#36a2eb',
+                '#cc65fe',
+                '#ffce56',
+                '#2ecc71'
+            ]
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                labels: {
+                    color: "white"
+                }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,803 @@
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
+/* =========================
+   PAGE BACKGROUND
+========================= */
+body {
+    height: 100vh;
+    overflow: hidden;   /* ✅ scroll completely stop */
+    background: radial-gradient(circle at top, #1b3c78, #020b2d);
+    color: #ffffff;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 40px;
+    background: rgba(5, 20, 50, 0.85);
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 0 25px rgba(0, 140, 255, 0.35);
+    z-index: 1000;
+}
+
+/* Navbar Left */
+.nav-left {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffffff;
+
+    text-shadow:
+        0 0 10px rgba(0, 140, 255, 0.9),
+        0 0 20px rgba(0, 140, 255, 0.5);
+}
+  .nav-center a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #e0f3ff;
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-center a:hover {
+    color: #6dd5fa;
+    text-shadow: 0 0 10px rgba(109,213,250,0.8);
+}
+ 
+.nav-right {
+    position: relative;
+}
+
+/* DROPDOWN MENU */
+.dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+
+    background: rgba(5, 20, 50, 0.95);
+    backdrop-filter: blur(10px);
+
+    border-radius: 10px;
+    padding: 10px 0;
+    width: 150px;
+
+    display: none; /* hidden by default */
+    flex-direction: column;
+
+    box-shadow: 0 0 20px rgba(0,140,255,0.4);
+}
+
+/* MENU LINKS */
+.dropdown-menu a {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #e0f3ff;
+    display: block;
+    transition: 0.3s;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(77,184,255,0.2);
+    color: #6dd5fa;
+}
+
+/* Navbar Right - Hamburger */
+.menu-icon {
+    width: 28px;
+    cursor: pointer;
+}
+
+.menu-icon span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #aee1ff;
+    margin: 6px 0;
+    border-radius: 3px;
+    box-shadow: 0 0 8px rgba(0, 140, 255, 0.7);
+}
+
+/* SIDE MENU */
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -250px;   /* hidden initially */
+    width: 250px;
+    height: 100%;
+
+    background: rgba(5, 20, 50, 0.98);
+    backdrop-filter: blur(12px);
+
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+
+    transition: 0.4s ease;
+    z-index: 2000;
+}
+
+/* OPEN STATE */
+.side-menu.active {
+    right: 0;
+}
+
+/* CLOSE BUTTON */
+.menu-header {
+    text-align: right;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+/* MENU LINKS */
+.side-menu a {
+    padding: 15px 25px;
+    text-decoration: none;
+    color: #e0f3ff;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.side-menu a:hover {
+    background: rgba(77,184,255,0.2);
+    color: #6dd5fa;
+}
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.4);
+    display: none;
+    z-index: 1500;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* =========================
+   MAIN BACKGROUND AREA
+========================= */
+.background {
+    min-height: 100vh;
+    padding-top: 75px; /* space for navbar */
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+
+/* =========================
+   CENTER TITLE (ABOVE CONTAINER)
+========================= */
+.center-title {
+    text-align: center;
+    margin-bottom: 35px;
+     
+}
+
+.center-title h1 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 0 15px rgba(0, 140, 255, 0.9),
+        0 0 30px rgba(0, 140, 255, 0.4);
+}
+
+.center-title h4 {
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 550;
+    letter-spacing: 0.6px;
+
+    color: #c9ff05;   /* Clean medical blue */
+
+    text-shadow:
+        0 0 8px rgba(17, 20, 218, 0.6);
+
+    opacity: 0.95;
+}
+
+/* =========================
+   MAIN CONTAINER (UPLOAD BOX)
+========================= */
+.container {
+    width: 420px;
+    padding: 35px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 18px;
+
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================
+   UPLOAD BOX
+========================= */
+.upload-box {
+    display: block;
+    padding: 24px;
+    margin-bottom: 25px;
+
+    border: 2px dashed #4db8ff;
+    border-radius: 14px;
+    cursor: pointer;
+
+    background: rgba(77, 184, 255, 0.08);
+    transition: 0.3s ease;
+}
+
+.upload-box span {
+    font-size: 15px;
+    color: #e0f3ff;
+}
+
+.upload-box:hover {
+    background: rgba(77, 184, 255, 0.18);
+}
+
+/* Hide file input */
+.upload-box input {
+    display: none;
+}
+
+/* =========================
+   PREVIEW IMAGE
+========================= */
+.preview {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.preview img {
+        width: 100%;
+    max-height: 180px;   /* 🔥 height reduce */
+    object-fit: contain; /* image stretch avvakunda */
+    border-radius: 10px;
+    margin-top: 10px;
+    display: none;
+}
+ .upload-status {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #72ff06;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(199, 238, 5, 0.6);
+}
+
+
+/* =========================
+   PREDICT BUTTON
+========================= */
+.predict-btn {
+    padding: 12px 40px;
+    border-radius: 30px;
+    border: none;
+     margin-top: 25px; 
+
+    background: linear-gradient(135deg, #6dd5fa, #2980b9);
+    color: #000000;
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(7, 7, 7, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.predict-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(2, 178, 241, 0.9);
+}
+
+/* stop home.page */
+
+/* ABOUT PAGE WHITE BACKGROUND */
+.about-body {
+    background: #ffffff;
+    color: #222;
+    overflow-y: auto;
+}
+
+/* ABOUT CONTENT */
+.about-section {
+    max-width: 900px;
+    margin: 110px auto 50px auto;
+    padding: 20px;
+    line-height: 1.7;
+}
+
+/* TITLE */
+.about-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-title h1 {
+    font-size: 38px;
+    color: #0b2a4a;
+}
+
+.about-title h3 {
+    color: #2980b9;
+    font-weight: 500;
+}
+
+/* HEADINGS */
+.about-section h2 {
+    margin-top: 25px;
+    color: #163a5f;
+}
+
+/* LIST STYLE */
+.about-section ul {
+    margin-left: 20px;
+}
+
+/* WORKFLOW SECTION */
+.workflow {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.flow-box {
+    display: inline-block;
+    background: #eaf4ff;
+    color: #0b2a4a;
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin: 8px 0;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.arrow {
+    font-size: 20px;
+    margin: 5px 0;
+    color: #2980b9;
+}
+
+.result-box {
+    background: #d4edda;
+    color: #155724;
+}
+/*stop about.html*/
+/* CONTACT / ABOUT PAGE BODY */
+.about-body {
+    background: #ffffff;
+    color: #222;
+}
+
+/* SECTION AREA */
+.about-section {
+   max-width: 900px;
+    margin: 80px auto 60px auto;
+    padding: 20px;
+    line-height: 1.7;
+
+    height: calc(100vh - 140px); /* navbar + footer space */
+    overflow-y: auto;  
+}
+
+/* TITLE */
+.about-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-title h1 {
+    font-size: 36px;
+    color: #0a2a5e;
+}
+
+.about-title h3 {
+    font-weight: 400;
+    color: #555;
+}
+.about-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.about-section::-webkit-scrollbar-thumb {
+    background: #fcf9f9;
+    border-radius: 10px;
+}
+
+/* SECTION HEADING */
+.section-heading {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #0a2a5e;
+}
+
+/* CONTACT CARD */
+.contact-card {
+    background: #f5f7fa;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+
+    width: 300px;   /* 🔥 width increase */
+    text-align: center;
+}
+
+/* LEADER CARD */
+.leader {
+    border-top: 4px solid #2980b9;
+}
+
+/* TEAM MEMBERS ROW */
+.team-members {
+    display: flex;
+    justify-content: flex-start;   /* 🔥 left side alignment */
+    gap: 30px;
+    flex-wrap: nowrap;             /* one row lo undali */
+    margin-left: 0;
+}
+
+.team-info {
+    text-align: center;
+    background: #eef4ff;
+    padding: 15px 25px;
+    border-radius: 10px;
+    width: 520px;
+    max-width: 90%;
+    margin: 10px auto 30px auto;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+.team-info p {
+    margin: 6px 0;
+    font-size: 15px;
+    color: #0a2a5e;
+}
+
+.team-info hr {
+    margin: 10px 0;
+    border: none;
+    height: 1px;
+    background: #cbd6ff;
+}
+
+/* ===============================
+   CONTACT PAGE TWO COLUMN LAYOUT
+=============================== */
+
+.contact-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+
+    width: 90%;
+    margin: 110px auto 40px auto;
+
+      height: calc(100vh - 140px); /* navbar + footer space */
+    overflow-y: auto;             /* middle scroll only */
+}
+
+.contact-layout::-webkit-scrollbar {
+    width: 6px;
+}
+
+.contact-layout::-webkit-scrollbar-thumb {
+    background: #f9fcfe;
+    border-radius: 10px;
+}
+
+
+/* LEFT SIDE TEAM INFO */
+.team-info {
+    width: 320px;
+    text-align: left;
+}
+
+/* RIGHT SIDE TEAM DETAILS */
+.team-details {
+    flex: 1;
+}
+
+/* LEADER CARD WIDTH INCREASE */
+.contact-card.leader {
+    width: 420px;
+    max-width: 100%;
+    margin: 15px auto;
+}
+
+/* TEAM MEMBERS ALIGNMENT */
+.team-members {
+    justify-content: flex-start;
+}
+
+
+
+/*===========================*/
+/*result.html*/
+/* RESULT PAGE BACKGROUND */
+.result-bg {
+    min-height: 100vh;
+    padding-top: 100px;
+    background: radial-gradient(circle at top, #1b3c78, #020b2d);
+    text-align: center;
+    color: white;
+}
+
+/* TITLE */
+.main-title {
+    font-size: 40px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px rgba(0,140,255,0.8);
+}
+
+/* MAIN RESULT LAYOUT */
+.result-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* IMAGE CARD */
+.image-card {
+    width: 40%;
+    padding: 10px;     /* space reduce */
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+}
+
+.image-card img {
+     width: 100%;
+    max-width: 320px;
+    margin: 8px auto;   /* small gap only */
+    display: block;
+    border-radius: 10px;
+}
+
+
+/* RESULT CARD */
+.result-card {
+    width: 300px;
+    background: rgba(0,0,0,0.35);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,140,255,0.5);
+}
+
+/* RESULT ROW */
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* FINAL RESULT */
+.final-result {
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(0,140,255,0.2);
+    border-radius: 10px;
+}
+
+/* PIE CHART */
+.chart-box {
+    margin-top: 20px;
+}
+
+/* UPLOAD AGAIN BUTTON */
+.upload-again {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg,#6dd5fa,#2980b9);
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+}
+
+.prediction-title {
+    text-align: center;
+    
+    margin-bottom: 15px;
+    color: white;
+    font-size: 24px;
+}
+
+.prediction-info {
+    margin-top: 12px;
+    background: rgba(0,140,255,0.15);
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.prediction-info p {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+/*=====stop result.html=====*/
+/* ================= FOOTER BAR ================= */
+.footer-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(5, 20, 50, 0.85);
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 -2px 20px rgba(0,140,255,0.25);
+    color: #aee1ff;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 520px) {
+    .container {
+        width: 90%;
+    }
+
+    .center-title h1 {
+        font-size: 34px;
+    }
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN — ALL DEVICES SUPPORT
+========================================== */
+
+/* ---------- TABLET (1024px and below) ---------- */
+@media (max-width: 1024px) {
+
+    .result-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-card,
+    .result-card {
+        width: 80%;
+    }
+
+    .container {
+        width: 60%;
+    }
+
+    .center-title h1 {
+        font-size: 36px;
+    }
+}
+
+
+/* ---------- MOBILE (768px and below) ---------- */
+@media (max-width: 768px) {
+
+    body {
+        overflow-y: auto;   /* mobile lo scroll allow */
+    }
+
+    .navbar {
+        padding: 0 20px;
+        height: 60px;
+    }
+
+    .nav-left {
+        font-size: 18px;
+    }
+
+    .center-title h1 {
+        font-size: 28px;
+    }
+
+    .center-title h4 {
+        font-size: 13px;
+    }
+
+    .container {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .result-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .image-card,
+    .result-card {
+        width: 90%;
+    }
+
+    .team-members {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-layout {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .team-info {
+        width: 100%;
+    }
+}
+
+
+/* ---------- SMALL MOBILE (480px and below) ---------- */
+@media (max-width: 480px) {
+
+    .center-title h1 {
+        font-size: 24px;
+    }
+
+    .predict-btn {
+        width: 100%;
+    }
+
+    .upload-box {
+        padding: 18px;
+    }
+
+    .preview img {
+        max-height: 150px;
+    }
+
+    .result-card {
+        padding: 15px;
+    }
+
+    .footer-bar {
+        font-size: 12px;
+        height: 45px;
+    }
+}
+

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About - HematoVision</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="about-body">
+
+<!-- NAVBAR -->
+<div class="navbar">
+
+    <div class="nav-left">
+        🩸 HematoVision
+    </div>
+
+    <div class="nav-right">
+        <div class="menu-icon" onclick="openMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+</div>
+
+<!-- SIDE MENU -->
+<div id="sideMenu" class="side-menu">
+    <div class="menu-header">
+        <span onclick="closeMenu()">✖</span>
+    </div>
+
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+</div>
+
+<div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+
+<!-- ABOUT CONTENT -->
+<div class="about-section">
+
+    <!-- PROJECT TITLE -->
+    <div class="about-title">
+        <h1>HematoVision</h1>
+        <h3>Transfer Learning Based Blood Cell Classification</h3>
+    </div>
+
+    <h2>Project Overview</h2>
+    <p>
+        HematoVision is an AI-based blood cell classification system developed
+        using Transfer Learning and Deep Learning techniques. The system
+        classifies blood cells into Eosinophil, Lymphocyte, Monocyte,
+        and Neutrophil categories.
+    </p>
+
+    <h2>Technical Skills Used</h2>
+    <ul>
+        <li>Python</li>
+        <li>Flask</li>
+        <li>TensorFlow / Keras</li>
+        <li>Transfer Learning (MobileNetV2)</li>
+        <li>HTML, CSS, JavaScript</li>
+        <li>VS Code</li>
+    </ul>
+
+    <h2>How It Works</h2>
+
+<p><b>Step 1:</b> The user uploads a microscopic blood cell image through the HematoVision web interface.</p>
+
+<p><b>Step 2:</b> The Flask web application receives the uploaded image and stores it temporarily on the server.</p>
+
+<p><b>Step 3:</b> The uploaded image undergoes preprocessing, including resizing and normalization, to match the input requirements of the trained model.</p>
+
+<p><b>Step 4:</b> The preprocessed image is passed to the trained Convolutional Neural Network (CNN) model developed using Transfer Learning.</p>
+
+<p><b>Step 5:</b> The model analyzes image features and classifies the blood cell into one of the categories such as Eosinophil, Lymphocyte, Monocyte, or Neutrophil.</p>
+
+<p><b>Step 6:</b> The prediction result along with confidence scores is sent back to the Flask application.</p>
+
+<p><b>Step 7:</b> Finally, the predicted blood cell type and result visualization are displayed to the user on the result page.</p>
+
+
+    <h2>Applications / Uses</h2>
+    <ul>
+        <li>Medical diagnostics assistance</li>
+        <li>Laboratory automation</li>
+        <li>Medical education</li>
+        <li>Remote healthcare analysis</li>
+    </ul>
+
+<h2>Flask Web Application Workflow</h2>
+
+<div class="workflow">
+
+    <div class="flow-box">User Uploads Blood Cell Image</div>
+    <div class="arrow">↓</div>
+
+    <div class="flow-box">Flask Web Server Receives Image</div>
+    <div class="arrow">↓</div>
+
+    <div class="flow-box">Image Preprocessing<br>
+        (Resize, Normalize)</div>
+    <div class="arrow">↓</div>
+
+    <div class="flow-box">Trained CNN Model<br>
+        (Transfer Learning)</div>
+    <div class="arrow">↓</div>
+
+    <div class="flow-box result-box">
+        Prediction Result Displayed
+    </div>
+
+</div>
+
+    <h2>VS Code Project Structure</h2>
+
+<pre>
+    HematoVision/
+│
+├── dataset/
+│   │
+│   ├── train/
+│   │    ├── eosinophil/
+│   │    ├── lymphocyte/
+│   │    ├── monocyte/
+│   │    └── neutrophil/
+│   │
+│   └── validation/
+│        ├── eosinophil/
+│        ├── lymphocyte/
+│        ├── monocyte/
+│        └── neutrophil/
+│
+├── model/
+│   └── blood_cell_model.h5        # Trained CNN model
+│
+├── static/
+│   │
+│   ├── css/
+│   │    └── style.css             # UI styling
+│   │
+│   ├── js/
+│   │    └── script.js             # Menu & preview logic
+│   │
+│   └── uploads/                   # Uploaded images
+│
+├── templates/
+│   │
+│   ├── index.html                 # Home page (Image upload)
+│   ├── about.html                 # Project explanation
+│   ├── contact.html               # Contact page
+│   └── result.html                # Prediction result page
+│
+├── app.py                         # Flask main application
+│
+├── train_model.py                 # Model training script
+│
+├── requirements.txt               # Required Python libraries
+│
+└── README.md                      # Project description (optional)
+
+</pre>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<!-- ================= FOOTER BAR ================= -->
+<div class="footer-bar">
+    <p>© 2026 HematoVision | Transfer Learning Based Blood Cell Classification</p>
+</div>
+</body>
+</html>
